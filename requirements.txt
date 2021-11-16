@@ -1,0 +1,14 @@
+torch
+torchvision
+torchio
+pandas
+numpy
+neptune-client
+nibabel
+napari
+matplotlib
+seaborn
+kornia
+unet
+tqdm
+self_attention_cv

@@ -110,7 +110,7 @@ class PSPModule(nn.Module):
 
     def forward(self, feats):
         h, w = feats.size(2), feats.size(3)
-        priors = [F.upsample(input=stage(feats), size=(h, w), mode='bilinear') for stage in self.stages] + [feats]
+        priors = [F.interpolate(input=stage(feats), size=(h, w), mode='bilinear', align_corners=True) for stage in self.stages] + [feats]
         bottle = self.bottleneck(torch.cat(priors, 1))
         return self.relu(bottle)
 
@@ -127,10 +127,10 @@ class SPPblock(nn.Module):
 
     def forward(self, x):
         self.in_channels, h, w = x.size(1), x.size(2), x.size(3)
-        self.layer1 = F.upsample(self.conv(self.pool1(x)), size=(h, w), mode='bilinear')
-        self.layer2 = F.upsample(self.conv(self.pool2(x)), size=(h, w), mode='bilinear')
-        self.layer3 = F.upsample(self.conv(self.pool3(x)), size=(h, w), mode='bilinear')
-        self.layer4 = F.upsample(self.conv(self.pool4(x)), size=(h, w), mode='bilinear')
+        self.layer1 = F.interpolate(self.conv(self.pool1(x)), size=(h, w), mode='bilinear', align_corners=True)
+        self.layer2 = F.interpolate(self.conv(self.pool2(x)), size=(h, w), mode='bilinear', align_corners=True)
+        self.layer3 = F.interpolate(self.conv(self.pool3(x)), size=(h, w), mode='bilinear', align_corners=True)
+        self.layer4 = F.interpolate(self.conv(self.pool4(x)), size=(h, w), mode='bilinear', align_corners=True)
 
         out = torch.cat([self.layer1, self.layer2, self.layer3, self.layer4, x], 1)
 

@@ -17,15 +17,15 @@ def loader_manager(data_view, training_split_ratio, batch_size, num_workers, cre
     if data_view == 'SA':
         train_set = Path('/home/carlesgc/Projects/segmentation/train_data_SA/')
         get_dataset = get_dataset_SA
-        histogram_landmarks_path = 'landmarks_SA.npy'
+        histogram_landmarks_path = '/home/carlesgc/Projects/segmentation/landmarks_SA.npy'
         if create_landmarks == False:
             landmarks = np.load(histogram_landmarks_path)
     elif data_view == 'LA':
         train_set = Path('/home/carlesgc/Projects/segmentation/train_data_LA/')
         get_dataset = get_dataset_LA
-        histogram_landmarks_path = 'landmarks_LA.npy'
+        histogram_landmarks_path = '/home/carlesgc/Projects/segmentation/landmarks_LA.npy'
         if create_landmarks == False:
-            landmarks = np.load('landmarks_LA.npy')
+            landmarks = np.load(histogram_landmarks_path)
 
     ## Datasets
     # train_set = Path('/home/carlesgc/Projects/segmentation/train_data_SA/')
